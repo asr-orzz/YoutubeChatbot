@@ -1,43 +1,108 @@
-# Chat-Youtube
-Chat with any Youtube video. 
 
-Easily input the video url you'd like to chat with. Instant answers. Ask questions, extract information, and summarize documents with AI. Sources included.
+````markdown
+# 🎬 YoutubeChatbot
 
-### Getting Started
+A powerful chatbot that lets you interact with any **YouTube video** using **LangChain**, **OpenAI**, and **Streamlit**. Just paste a YouTube video URL and start chatting — ask questions, extract insights, or summarize content.
 
-Code is up now, ⭐ (Star) the repo to receive updates
+![Made with LangChain and OpenAI](https://img.shields.io/badge/Made%20with-LangChain%20%26%20OpenAI-blue)
+![Streamlit UI](https://img.shields.io/badge/UI-Streamlit-orange)
+![Python](https://img.shields.io/badge/Python-3.8%2B-green)
 
-Replit and streamlit version coming soon
+---
 
-Follow [Anil Chandra Naidu Matcha](https://twitter.com/matchaman11) on twitter for updates
+## ✨ Features
 
-Subscribe to https://www.youtube.com/@AnilChandraNaiduMatcha for more such video tutorials
+- 🔗 Paste a YouTube URL and ingest video content
+- 💬 Chat with the video transcript via a simple UI
+- 🧠 Vector store with ChromaDB for fast retrieval
+- 🤖 OpenAI-powered Q&A and summarization
+- 📱 Minimal setup, runs in CLI or web UI
 
-### How to run ? (Things might change based on OS)
+---
 
-1. Create a virtual environment in python https://docs.python.org/3/library/venv.html
+## 🚀 Getting Started
 
-2. Run "pip install -r requirements.txt"
+### 1. Clone the Repository
 
-3. Set OPENAI_API_KEY environment variable with your openai key
+```bash
+git clone https://github.com/asr-orzz/YoutubeChatbot.git
+cd YoutubeChatbot
+````
 
-4. Run "python chat_youtube.py"
+### 2. Create a Virtual Environment
 
-5. Change video url and query in code if you want to try with any other content
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
 
-To run streamlit app, follow the steps run "streamlit run streamlitui.py"
+### 3. Install Dependencies
 
-### Demo link
+```bash
+pip install -r requirements.txt
+```
 
-https://heybot.thesamur.ai/
+### 4. Set OpenAI API Key
 
-### Also check
+Set your OpenAI API key in your terminal:
 
-[Chat with PDF code](https://github.com/Anil-matcha/ChatPDF)
+```bash
+export OPENAI_API_KEY="your-openai-api-key"  # macOS/Linux
+set OPENAI_API_KEY="your-openai-api-key"     # Windows
+```
 
-[Chat with Website code](https://github.com/Anil-matcha/Website-to-Chatbot)
+Or enter it in the input field in the web UI.
 
-[Chat with CSV code](https://github.com/Anil-matcha/Chat-With-Excel)
+---
 
-[ChatGPT in Discord code](https://github.com/Anil-matcha/DiscordGPT)
+## 🧪 How to Use
+
+### CLI Mode
+
+Edit `chat_youtube.py` and update the video URL and query:
+
+```bash
+python chat_youtube.py
+```
+
+### Streamlit Web App
+
+```bash
+streamlit run streamlitui.py
+```
+
+Then open the provided local URL in your browser.
+You can input your API key and video URL directly in the app.
+
+---
+
+## 📂 Project Structure
+
+| File               | Description                                  |
+| ------------------ | -------------------------------------------- |
+| `chat_youtube.py`  | Command-line chatbot example.                |
+| `streamlitui.py`   | Streamlit-based chatbot UI.                  |
+| `youtubequery.py`  | Core class handling ingestion and retrieval. |
+| `requirements.txt` | Python dependencies.                         |
+
+---
+
+## 📍 Sample Queries
+
+* “What is this video about?”
+* “Summarize the main points.”
+* “What did the speaker say about climate change?”
+
+---
+
+## 🔧 To-Do (Coming Soon)
+
+* [ ] Multiple video ingestion
+* [ ] Save chat history
+* [ ] Support for other languages
+* [ ] Streamlit file upload for local transcripts
+
+---
+
+
 
