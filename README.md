@@ -70,6 +70,7 @@ Open the local URL, paste a YouTube video link, wait for ingestion, then ask que
 | File | Description |
 | --- | --- |
 | `ingestion.py` | YouTube URL parsing, transcript fetch, and overlap chunking |
+| `vectorstore.py` | Gemini embeddings, ChromaDB indexing, and semantic search |
 | `youtubequery.py` | Transcript ingestion, embeddings, ChromaDB, and Gemini Q&A |
 | `streamlitui.py` | Streamlit chat UI and API key handling |
 | `requirements.txt` | Python dependencies |

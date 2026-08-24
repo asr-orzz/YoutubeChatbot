@@ -1,35 +1,43 @@
-import os
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
-from langchain.chains.question_answering import load_qa_chain
-from langchain.llms import OpenAI
 from ingestion import IngestError, ingest_youtube_url
+from vectorstore import (
+    VectorStoreError,
+    as_retriever,
+    create_embeddings,
+    index_chunks,
+    search_chunks,
+)
+
 
 class YoutubeQuery:
-    def __init__(self, openai_api_key = None) -> None:
-        self.embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
-        os.environ["OPENAI_API_KEY"] = openai_api_key
-        self.llm = OpenAI(temperature=0, openai_api_key=openai_api_key)
-        self.chain = None
-        self.db = None
+    def __init__(self, gemini_api_key=None) -> None:
+        self.embeddings = create_embeddings(gemini_api_key)
+        self.vectorstore = None
+        self.retriever = None
+
+    def search(self, question: str):
+        if self.retriever is None:
+            return None
+        return search_chunks(self.retriever, question)
 
     def ask(self, question: str) -> str:
-        if self.chain is None:
-            response = "Please, add a video."
-        else:
-            docs = self.db.get_relevant_documents(question)
-            response = self.chain.run(input_documents=docs, question=question)
-        return response
+        docs = self.search(question)
+        if docs is None:
+            return "Please, add a video."
+        if not docs:
+            return "No relevant transcript passages were found for that question."
+        return "\n\n".join(doc.page_content for doc in docs)
 
     def ingest(self, url: str) -> str:
         try:
-            splitted_documents = ingest_youtube_url(url)
+            chunks = ingest_youtube_url(url)
+            self.vectorstore = index_chunks(chunks, self.embeddings)
+            self.retriever = as_retriever(self.vectorstore)
         except IngestError as exc:
             return f"Error: {exc}"
-        self.db = Chroma.from_documents(splitted_documents, self.embeddings).as_retriever()
-        self.chain = load_qa_chain(OpenAI(temperature=0), chain_type="stuff")
+        except VectorStoreError as exc:
+            return f"Error: {exc}"
         return "Success"
 
     def forget(self) -> None:
-        self.db = None
-        self.chain = None
+        self.vectorstore = None
+        self.retriever = None
