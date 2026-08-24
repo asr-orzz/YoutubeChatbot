@@ -1,108 +1,80 @@
+# YouTubeChatbot
 
-````markdown
-# 🎬 YoutubeChatbot
+A conversational AI for chatting with YouTube video content. It fetches the video transcript, chunks it with overlap, embeds the chunks, stores them in ChromaDB, and answers questions with Gemini through a Streamlit chat UI.
 
-A powerful chatbot that lets you interact with any **YouTube video** using **LangChain**, **OpenAI**, and **Streamlit**. Just paste a YouTube video URL and start chatting — ask questions, extract insights, or summarize content.
+## Tech stack
 
-![Made with LangChain and OpenAI](https://img.shields.io/badge/Made%20with-LangChain%20%26%20OpenAI-blue)
-![Streamlit UI](https://img.shields.io/badge/UI-Streamlit-orange)
-![Python](https://img.shields.io/badge/Python-3.8%2B-green)
+- **Python** and **LangChain** for the ingestion and retrieval pipeline
+- **Gemini** for embeddings and question answering
+- **ChromaDB** for vector storage and semantic search
+- **Streamlit** for the live chat interface
 
----
+## Features
 
-## ✨ Features
+- Fetch and parse YouTube transcripts from a video URL
+- Split transcripts with overlap and context windows
+- Index chunks in ChromaDB for fast semantic search
+- Ask questions about the video in a Streamlit chat UI
+- Keep the Gemini API key out of source control
 
-- 🔗 Paste a YouTube URL and ingest video content
-- 💬 Chat with the video transcript via a simple UI
-- 🧠 Vector store with ChromaDB for fast retrieval
-- 🤖 OpenAI-powered Q&A and summarization
-- 📱 Minimal setup, runs in CLI or web UI
+## Getting started
 
----
-
-## 🚀 Getting Started
-
-### 1. Clone the Repository
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/asr-orzz/YoutubeChatbot.git
 cd YoutubeChatbot
-````
+```
 
-### 2. Create a Virtual Environment
+### 2. Create a virtual environment
 
 ```bash
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
 ```
 
-### 3. Install Dependencies
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Set OpenAI API Key
+### 4. Set your Gemini API key
 
-Set your OpenAI API key in your terminal:
-
-```bash
-export OPENAI_API_KEY="your-openai-api-key"  # macOS/Linux
-set OPENAI_API_KEY="your-openai-api-key"     # Windows
-```
-
-Or enter it in the input field in the web UI.
-
----
-
-## 🧪 How to Use
-
-### CLI Mode
-
-Edit `chat_youtube.py` and update the video URL and query:
+Copy the example env file and add a key from [Google AI Studio](https://aistudio.google.com/apikey):
 
 ```bash
-python chat_youtube.py
+cp .env.example .env
 ```
 
-### Streamlit Web App
+```env
+GEMINI_API_KEY=your-gemini-api-key
+```
+
+You can also enter the key in the Streamlit sidebar. Do not commit `.env`.
+
+## How to use
 
 ```bash
 streamlit run streamlitui.py
 ```
 
-Then open the provided local URL in your browser.
-You can input your API key and video URL directly in the app.
+Open the local URL, paste a YouTube video link, wait for ingestion, then ask questions such as:
 
----
+- What is this video about?
+- Summarize the main points.
+- What did the speaker say about climate change?
 
-## 📂 Project Structure
+## Project structure
 
-| File               | Description                                  |
-| ------------------ | -------------------------------------------- |
-| `chat_youtube.py`  | Command-line chatbot example.                |
-| `streamlitui.py`   | Streamlit-based chatbot UI.                  |
-| `youtubequery.py`  | Core class handling ingestion and retrieval. |
-| `requirements.txt` | Python dependencies.                         |
+| File | Description |
+| --- | --- |
+| `youtubequery.py` | Transcript ingestion, embeddings, ChromaDB, and Gemini Q&A |
+| `streamlitui.py` | Streamlit chat UI and API key handling |
+| `requirements.txt` | Python dependencies |
+| `.env.example` | Template for the Gemini API key |
 
----
+## Notes
 
-## 📍 Sample Queries
-
-* “What is this video about?”
-* “Summarize the main points.”
-* “What did the speaker say about climate change?”
-
----
-
-## 🔧 To-Do (Coming Soon)
-
-* [ ] Multiple video ingestion
-* [ ] Save chat history
-* [ ] Support for other languages
-* [ ] Streamlit file upload for local transcripts
-
----
-
-
-
+- A video must have captions or an auto-generated transcript.
+- Only Gemini is used for LLM and embedding calls.

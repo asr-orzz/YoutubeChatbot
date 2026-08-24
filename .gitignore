@@ -1,0 +1,27 @@
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment and secrets
+.env
+.env.local
+.streamlit/secrets.toml
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Vector store and local data
+chroma_db/
+.chroma/
+*.bin
+
+# OS and editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
